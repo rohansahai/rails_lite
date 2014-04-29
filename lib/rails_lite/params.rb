@@ -8,6 +8,7 @@ class Params
   def initialize(req, route_params = {})
     @params = {}
     parse_www_encoded_form(req.query_string) unless req.query_string.nil?
+    parse_www_encoded_form(req.body) unless req.body.nil?
   end
 
   def [](key)
