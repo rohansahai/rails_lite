@@ -10,21 +10,26 @@ class ControllerBase
   def initialize(req, res, route_params = {})
     @req = req
     @res = res
-    @already_built_response = false
+    @params = Params.new(req)
   end
 
   # populate the response with content
   # set the responses content type to the given type
   # later raise an error if the developer tries to double render
   def render_content(content, type)
-    @res.content_type = type
-    @res.body = content
-    @already_built_response = true
-    self.session.store_session(@res)
+    if already_built_response?
+      raise "You already rendered"
+    else
+      @res.content_type = type
+      @res.body = content
+      @already_built_response = true
+      self.session.store_session(@res)
+    end
   end
 
   # helper method to alias @already_built_response
   def already_built_response?
+    @already_built_response ||= false
   end
 
   # set the response status code and header

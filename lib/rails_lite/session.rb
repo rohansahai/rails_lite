@@ -9,13 +9,10 @@ class Session
   end
 
   def find_cookie(req)
+    @cookie_hash = {}
     req.cookies.each do |cookie|
       if cookie.name == '_rails_lite_app'
-        p "WERE HERE"
         @cookie_hash = JSON.parse(cookie.value)
-      else
-        p "OMG FUCK"
-        @cookie_hash = {}
       end
     end
   end
