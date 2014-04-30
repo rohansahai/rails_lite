@@ -2,7 +2,7 @@ require 'json'
 require 'webrick'
 
 class Flash
-  def initialize(res)
+  def initialize(req)
     find_flash(req)
   end
   

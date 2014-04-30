@@ -2,6 +2,7 @@ require 'erb'
 require 'active_support/inflector'
 require_relative 'params'
 require_relative 'session'
+require_relative 'flash'
 
 class ControllerBase
   attr_reader :params, :req, :res
