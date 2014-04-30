@@ -13,6 +13,7 @@ class Flash
       if cookie.name == '_rails_lite_flash'
         @flash_hash = JSON.parse(cookie.value)
         @flash_hash["count"] += 1
+        p @flash_hash["count"]
       end
     end
   end

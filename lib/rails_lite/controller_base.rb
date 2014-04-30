@@ -25,6 +25,7 @@ class ControllerBase
       @res.body = content
       @already_built_response = true
       self.session.store_session(@res)
+      self.flash.store_flash(@res)
     end
   end
 
