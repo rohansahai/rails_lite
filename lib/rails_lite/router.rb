@@ -36,6 +36,7 @@ class Router
   # evaluate the proc in the context of the instance
   # for syntactic sugar :)
   def draw(&proc)
+    Router.instance_eval(proc)
   end
 
   # make each of these methods that
@@ -51,10 +52,6 @@ class Router
     match_route = @routes.select{ |route| route.matches?(req) }
     match_route.first
   end
-  # 
-  # Add a method Router#run(req, res)
-  # Run on the first matching route.
-  # If none, return a 404 error (just set the response status).
 
   # either throw 404 or call run on a matched route
   def run(req, res)
