@@ -83,12 +83,10 @@ class Params
     end
     
   end
-
+  
   # this should return an array
   # user[address][street] should return ['user', 'address', 'street']
   def parse_key(key)
     key.scan(/\w+/)
   end
 end
-# params = Params.new
-# params.parse_www_encoded_form("user[address][street]=main")

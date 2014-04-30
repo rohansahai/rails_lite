@@ -20,6 +20,7 @@ class MyController < ControllerBase
     # after you have sessions going, uncomment:
    session["count"] ||= 0
    session["count"] += 1
+   flash["errors"] = "error"
    render :counting_show
   end
 end

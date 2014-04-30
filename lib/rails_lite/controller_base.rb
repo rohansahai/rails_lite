@@ -40,6 +40,7 @@ class ControllerBase
       @res.status = 302
   	  @res["Location"] = url
       self.session.store_session(@res)
+      self.flash.store_flash(@res)
       @already_built_response = true
     end
   end
@@ -58,10 +59,10 @@ class ControllerBase
     @session ||= Session.new(@req)
   end
   
-  # 
-  # Add a method ControllerBase#invoke_action(action_name)
-  # use send to call the appropriate action (like index or show)
-  # check to see if a template was rendered; if not call render in invoke_action.
+  # method exposing a 'Flash' object
+  def flash
+    @flash ||= Flash.new(@req)
+  end
   
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
