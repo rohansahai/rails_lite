@@ -16,9 +16,22 @@ class Route
   # use pattern to pull out route params (save for later?)
   # instantiate controller and call controller action
   def run(req, res)
-    new_controller = @controller_class.new(req, res, {}) #wtf?
+    route_params_hash = create_route_params_hash(req)
+    new_controller = @controller_class.new(req, res, route_params_hash)
     new_controller.invoke_action(@action_name)
   end
+  
+  def create_route_params_hash(req)
+    captures = self.pattern.match(req.path).captures
+    names =  self.pattern.match(req.path).names
+    route_params_hash = {}
+    
+    captures.length.times do |i|
+      route_params_hash[names[i]] = captures[i]
+    end
+    route_params_hash
+  end
+  
 end
 
 class Router
@@ -49,7 +62,6 @@ class Router
 
   # should return the route that matches this request
   def match(req)
-    p @routes
     match_route = @routes.select{ |route| route.matches?(req) }
     match_route.first
   end
