@@ -13,17 +13,19 @@ class Flash
       if cookie.name == '_rails_lite_flash'
         @flash_hash = JSON.parse(cookie.value)
         @flash_hash["count"] += 1
-        p @flash_hash["count"]
       end
     end
   end
   
   def [](key)
-    @flash_hash[key]
+    if @last_count == @flash_hash["count"]
+      @flash_hash[key]
+    end
   end
   
   def []=(key,value)
     @flash_hash[key] = value
+    @last_count = @flash_hash["count"]
   end
   
   def store_flash(res)
