@@ -36,7 +36,7 @@ class Router
   # evaluate the proc in the context of the instance
   # for syntactic sugar :)
   def draw(&proc)
-    Router.instance_eval(proc)
+    self.instance_eval { proc }
   end
 
   # make each of these methods that
@@ -49,6 +49,7 @@ class Router
 
   # should return the route that matches this request
   def match(req)
+    p @routes
     match_route = @routes.select{ |route| route.matches?(req) }
     match_route.first
   end
