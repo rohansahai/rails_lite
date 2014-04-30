@@ -34,9 +34,14 @@ class ControllerBase
 
   # set the response status code and header
   def redirect_to(url)
-    @res.status = 302
-	  @res["Location"] = url
-    self.session.store_session(@res)
+    if already_built_response?
+      raise "You already rendered"
+    else
+      @res.status = 302
+  	  @res["Location"] = url
+      self.session.store_session(@res)
+      @already_built_response = true
+    end
   end
 
   # use ERB and binding to evaluate templates
