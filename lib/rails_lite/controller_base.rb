@@ -52,8 +52,15 @@ class ControllerBase
   def session
     @session ||= Session.new(@req)
   end
-
+  
+  # 
+  # Add a method ControllerBase#invoke_action(action_name)
+  # use send to call the appropriate action (like index or show)
+  # check to see if a template was rendered; if not call render in invoke_action.
+  
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
+    self.send(name)
+    render(name) unless already_built_response?
   end
 end

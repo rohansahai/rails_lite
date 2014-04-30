@@ -16,7 +16,8 @@ class Route
   # use pattern to pull out route params (save for later?)
   # instantiate controller and call controller action
   def run(req, res)
-    
+    new_controller = @controller_class.new(req, res)
+    new_controller.invoke_action(@action_name)
   end
 end
 
@@ -50,8 +51,17 @@ class Router
     match_route = @routes.select{ |route| route.matches?(req) }
     match_route.first
   end
+  # 
+  # Add a method Router#run(req, res)
+  # Run on the first matching route.
+  # If none, return a 404 error (just set the response status).
 
   # either throw 404 or call run on a matched route
   def run(req, res)
+    if match(req)
+      match(req).run(req, res)
+    else
+      res.status = 404
+    end
   end
 end
