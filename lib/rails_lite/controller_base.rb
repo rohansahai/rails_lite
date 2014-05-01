@@ -25,7 +25,7 @@ class ControllerBase
       @res.body = content
       @already_built_response = true
       self.session.store_session(@res)
-      self.flash.store_flash(@res)
+      # self.flash.store_flash(@res)
     end
   end
 
@@ -42,7 +42,7 @@ class ControllerBase
       @res.status = 302
   	  @res["Location"] = url
       self.session.store_session(@res)
-      self.flash.store_flash(@res)
+      #self.flash.store_flash(@res)
       @already_built_response = true
     end
   end
@@ -63,7 +63,7 @@ class ControllerBase
   
   # method exposing a 'Flash' object
   def flash
-    @flash ||= Flash.new(@req)
+    @flash ||= Flash.new(@req, @res)
   end
   
   # use this with the router to call action_name (:index, :show, :create...)

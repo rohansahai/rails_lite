@@ -33,7 +33,6 @@ class Session
   end
 end
 
-
 # Write a helper class, Session in rails_lite/session.rb, which is passed the WEBrick::HTTPRequest on 
 # initialization. It should iterate through the cookies, looking for the one named '_rails_lite_app'. 
 # If this cookie has been set before, it should use JSON to deserialize the value and store this in an ivar;
